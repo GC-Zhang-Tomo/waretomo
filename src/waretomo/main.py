@@ -4,6 +4,7 @@ import click
 
 import waretomo
 
+from time import sleep
 
 class ProcessingStep(str, Enum):
     """Enum for step selection."""
@@ -292,8 +293,8 @@ def cli(
             for step, val in ProcessingStep.__members__.items()
         }
         if not train:
-            steps["stack_halves"] = False
-            steps["reconstruct_halves"] = False
+            steps["stack_halves"] = True
+            steps["reconstruct_halves"] = True
 
         nl = "\n"
 
@@ -418,6 +419,7 @@ def cli(
                     **aretomo_kwargs,
                     **meta_kwargs,
                 )
+                sleep(1)
                 # remove leftovers from aretomo otherwise topaz dies later
                 for f in half_dir.glob("*_projX?.mrc"):
                     f.unlink(missing_ok=True)
