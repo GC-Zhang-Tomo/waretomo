@@ -99,14 +99,14 @@ def _aretomo(
                 "AlignZ": thickness_align,
                 "TiltCor": int(tilt_corr),
                 "VolZ": 0,
-                "TiltAxis": f"{tilt_axis} 1" if tilt_axis is not None else "0 1",
+                "TiltAxis": f"{tilt_axis} 0" if tilt_axis is not None else "0 0",
                 "OutImod": 2,
             }
         )
         if roi_file is not None:
             options["RoiFile"] = roi_file
         if patches is not None:
-            options["Patch"] = f"{patches} {patches}"
+            options["Patch"] = f"7 5"
 
     # run aretomo with basic settings
     aretomo_cmd = f"{cmd} {' '.join(f'-{k} {v}' for k, v in options.items())}"
